@@ -28,9 +28,7 @@ install:
 	install -Dm644 source/repman/native/inih/LICENSE.txt   "$(DESTDIR)/usr/share/licenses/pactoys/inih/LICENSE"
 
 # MSYS2
-ifeq ($(system_type),Msys2)
 	mkdir -p "$(DESTDIR)/var/cache/pacboy"
 	install -Dm755 source/pacboy/pacboy.sh                 "$(DESTDIR)/usr/bin/pacboy"
 	install -Dm644 source/pacboy/pacboy.completion         "$(DESTDIR)/usr/share/bash-completion/completions/pacboy"
 	install -Dm644 source/saneman/modules/msys2.sane.sh    "$(DESTDIR)/usr/share/saneman/modules/msys2.sane"
-endif
