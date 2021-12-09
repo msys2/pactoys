@@ -11,7 +11,7 @@ help_and_exit() {
 
     Usage:
         $(basename "$0") [command] [arguments]
-        Arguments will be passed to pacman or pkgfile after translation:
+        Arguments will be passed to pacman after translation:
 
         For 64-bit MSYS2 shell:
             name:i means i686-only
@@ -38,7 +38,7 @@ help_and_exit() {
         packages    Shorthand for --sync --list
         files       Shorthand for --query --list [--file]
         info        Shorthand for --query --info [--file]
-        origin      Shorthand for --query --owns or pkgfile
+        origin      Shorthand for --query --owns or --files
         remove      Shorthand for --remove --recursive
         debug       Verbose output for the above commands
     "
@@ -147,8 +147,7 @@ refresh_databases() {
     done
 
     status 'Updating package content databases'
-    refresh_cache 'pkgfile' "${repositories[@]}"
-    execute pkgfile --update || exit
+    execute ${pacman} --files --refresh || exit
 
     status 'Updating package name databases'
     refresh_cache 'pacboy' "${repositories[@]}"
@@ -187,7 +186,7 @@ for argument in "${@}"; do
         files)       command="${argument}"; raw_command="${pacman} --query --list" ;;
         info)        command="${argument}"; raw_command="${pacman} --query --info" ;;
         remove)      command="${argument}"; raw_command="${pacman} --remove --recursive" ;;
-        origin)      command="${argument}"; raw_command='pkgfile' ;;
+        origin)      command="${argument}"; raw_command="${pacman} --files" ;;
         *)           arguments+=("${argument}")
     esac
 done
