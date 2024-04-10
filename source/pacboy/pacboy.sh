@@ -215,7 +215,7 @@ for argument in "${arguments[@]}"; do
      *:c) raw_argument=(mingw-w64-clang-x86_64-${argument%:c}) ;;
      *:l) raw_argument=(mingw-w64-clang-x86_64-${argument%:l} mingw-w64-clang-i686-${argument%:l}) ;;
      *:a) raw_argument=(mingw-w64-clang-aarch64-${argument%:a}) ;;
-     *:p) raw_argument=(${MINGW_PACKAGE_PREFIX}-${argument%:p}) ;;
+     *:p) raw_argument=(${MINGW_PACKAGE_PREFIX:+${MINGW_PACKAGE_PREFIX}-}${argument%:p}) ;;
      *) parse_mingw_argument ;;
     esac
     [[ $argument =~ ^(-h|-[^-].*h|--help$) ]] && help_tip='true'
