@@ -54,7 +54,7 @@ parse_mingw_argument() {
     [[ "${command}"  = packages ]] && { raw_argument=(${argument}); return; }
     [[ "${command}"  = files    ]] && { raw_argument=(${full_package_prefix}${argument}); return; }
     [[ "${command}"  = info     ]] && { raw_argument=(${full_package_prefix}${argument}); return; }
-    raw_argument=(mingw-w64-x86_64-${argument} mingw-w64-i686-${argument})
+    raw_argument=(${full_package_prefix}${argument})
 }
 
 realname() {
