@@ -22,10 +22,6 @@ help_and_exit() {
             name:a means clang-aarch64-only
             name:p means MINGW_PACKAGE_PREFIX-only
 
-        For MSYS shell:
-            name:m means mingw-w64
-            name:l means mingw-w64-clang
-
         For all shells:
             name: disables any translation for name
             repository::name means repository/name
@@ -75,6 +71,15 @@ status() {
         local normal='\e[0m'
     fi
     echo -e "${blue}::${white}" "${@}...${normal}"
+}
+
+warning() {
+    if [[ -t 1 ]]; then
+        local yellow='\e[1;33m'
+        local white='\e[1;37m'
+        local normal='\e[0m'
+    fi
+    echo -e "${yellow}warning:${white}" "${@}${normal}"
 }
 
 execute() {
@@ -200,11 +205,19 @@ for argument in "${arguments[@]}"; do
       *:) raw_argument=("${argument%:}") ;;
      *:i) raw_argument=(mingw-w64-i686-${argument%:i}) ;;
      *:x) raw_argument=(mingw-w64-x86_64-${argument%:x}) ;;
-     *:m) raw_argument=(mingw-w64-x86_64-${argument%:m} mingw-w64-i686-${argument%:m}) ;;
+     *:m)
+        # deprecated
+        warning "'${argument}' is deprecated, use '${argument%:m}:i' and/or '${argument%:m}:x' instead"
+        raw_argument=(mingw-w64-x86_64-${argument%:m} mingw-w64-i686-${argument%:m})
+        ;;
      *:u) raw_argument=(mingw-w64-ucrt-x86_64-${argument%:u}) ;;
      *:z) raw_argument=(mingw-w64-clang-i686-${argument%:z}) ;;
      *:c) raw_argument=(mingw-w64-clang-x86_64-${argument%:c}) ;;
-     *:l) raw_argument=(mingw-w64-clang-x86_64-${argument%:l} mingw-w64-clang-i686-${argument%:l}) ;;
+     *:l)
+        # deprecated
+        warning "'${argument}' is deprecated, use '${argument%:l}:z' and/or '${argument%:c}:x' instead"
+        raw_argument=(mingw-w64-clang-x86_64-${argument%:l} mingw-w64-clang-i686-${argument%:l})
+        ;;
      *:a) raw_argument=(mingw-w64-clang-aarch64-${argument%:a}) ;;
      *:p) raw_argument=(${full_package_prefix}${argument%:p}) ;;
      *) parse_mingw_argument ;;
