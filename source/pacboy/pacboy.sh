@@ -14,15 +14,16 @@ help_and_exit() {
         Arguments will be passed to pacman after translation:
 
         Package name translations:
-            name:i means i686-only
-            name:x means x86_64-only
-            name:z means clang-i686-only
-            name:c means clang-x86_64-only
-            name:u means ucrt-x86_64-only
-            name:a means clang-aarch64-only
-            name:p means MINGW_PACKAGE_PREFIX-only
-            name: disables any translation for name
-            repository::name means repository/name
+            name   - uses the package prefix of the current environment: ${full_package_prefix}name
+            name:i - translates to mingw-w64-i686-name
+            name:x - translates to mingw-w64-x86_64-name
+            name:z - translates to mingw-w64-clang-i686-name
+            name:c - translates to mingw-w64-clang-x86_64-name
+            name:u - translates to mingw-w64-ucrt-x86_64-name
+            name:a - translates to mingw-w64-clang-aarch64-name
+            name:p - means the same as \"name\"
+            name:  - disables any translation for name
+            repository::name - means repository/name
 
     Commands:
         sync        Shorthand for --sync or --upgrade
