@@ -53,7 +53,6 @@ parse_mingw_argument() {
     [[ "${command}"  = find     ]] && { raw_argument=(${argument}); return; }
     [[ "${command}"  = packages ]] && { raw_argument=(${argument}); return; }
     [[ "${MSYSTEM}" != MINGW*   ]] && { raw_argument=(${argument}); return; }
-    [[ "${machine}" != x86_64   ]] && { raw_argument=(mingw-w64-${architecture}-${argument}); return; }
     [[ "${command}"  = files    ]] && { raw_argument=(mingw-w64-${architecture}-${argument}); return; }
     [[ "${command}"  = info     ]] && { raw_argument=(mingw-w64-${architecture}-${argument}); return; }
     raw_argument=(mingw-w64-x86_64-${argument} mingw-w64-i686-${argument})
