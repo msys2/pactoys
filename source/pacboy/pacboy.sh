@@ -161,6 +161,7 @@ machine=$(uname -m)
 case "${MSYSTEM}" in
     MINGW32) architecture='i686' ;;
     MINGW64) architecture='x86_64' ;;
+    CLANG32) architecture='clang-i686' ;;
     CLANG64) architecture='clang-x86_64' ;;
     UCRT64) architecture='ucrt-x86_64' ;;
     *) architecture="${machine}"
