@@ -52,9 +52,8 @@ parse_mingw_argument() {
     [[ "${command}"  = origin   ]] && { raw_argument=(${argument}); return; }
     [[ "${command}"  = find     ]] && { raw_argument=(${argument}); return; }
     [[ "${command}"  = packages ]] && { raw_argument=(${argument}); return; }
-    [[ "${MSYSTEM}" != MINGW*   ]] && { raw_argument=(${argument}); return; }
-    [[ "${command}"  = files    ]] && { raw_argument=(mingw-w64-${architecture}-${argument}); return; }
-    [[ "${command}"  = info     ]] && { raw_argument=(mingw-w64-${architecture}-${argument}); return; }
+    [[ "${command}"  = files    ]] && { raw_argument=(${full_package_prefix}${argument}); return; }
+    [[ "${command}"  = info     ]] && { raw_argument=(${full_package_prefix}${argument}); return; }
     raw_argument=(mingw-w64-x86_64-${argument} mingw-w64-i686-${argument})
 }
 
@@ -156,15 +155,7 @@ refresh_databases() {
 arguments=()
 raw_arguments=()
 pacman='pacman --color auto'
-machine=$(uname -m)
-case "${MSYSTEM}" in
-    MINGW32) architecture='i686' ;;
-    MINGW64) architecture='x86_64' ;;
-    CLANG32) architecture='clang-i686' ;;
-    CLANG64) architecture='clang-x86_64' ;;
-    UCRT64) architecture='ucrt-x86_64' ;;
-    *) architecture="${machine}"
-esac
+full_package_prefix="${MINGW_PACKAGE_PREFIX:+${MINGW_PACKAGE_PREFIX}-}"
 test -z "${1}" && help_and_exit
 
 for argument in "${@}"; do
@@ -215,7 +206,7 @@ for argument in "${arguments[@]}"; do
      *:c) raw_argument=(mingw-w64-clang-x86_64-${argument%:c}) ;;
      *:l) raw_argument=(mingw-w64-clang-x86_64-${argument%:l} mingw-w64-clang-i686-${argument%:l}) ;;
      *:a) raw_argument=(mingw-w64-clang-aarch64-${argument%:a}) ;;
-     *:p) raw_argument=(${MINGW_PACKAGE_PREFIX:+${MINGW_PACKAGE_PREFIX}-}${argument%:p}) ;;
+     *:p) raw_argument=(${full_package_prefix}${argument%:p}) ;;
      *) parse_mingw_argument ;;
     esac
     [[ $argument =~ ^(-h|-[^-].*h|--help$) ]] && help_tip='true'
