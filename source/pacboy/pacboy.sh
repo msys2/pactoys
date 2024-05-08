@@ -13,7 +13,7 @@ help_and_exit() {
         $(basename "$0") [command] [arguments]
         Arguments will be passed to pacman after translation:
 
-        For 64-bit MSYS2 shell:
+        Package name translations:
             name:i means i686-only
             name:x means x86_64-only
             name:z means clang-i686-only
@@ -21,8 +21,6 @@ help_and_exit() {
             name:u means ucrt-x86_64-only
             name:a means clang-aarch64-only
             name:p means MINGW_PACKAGE_PREFIX-only
-
-        For all shells:
             name: disables any translation for name
             repository::name means repository/name
 
