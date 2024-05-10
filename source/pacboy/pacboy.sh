@@ -2,7 +2,7 @@
 
 help_and_exit() {
     echo "
-    Pacboy 2016.6.24
+    Pacboy 2024.05.10
     Copyright (C) 2015, 2016 Renato Silva
     Licensed under BSD
 
