@@ -23,7 +23,7 @@ help_and_exit() {
             name:a - translates to mingw-w64-clang-aarch64-name
             name:p - means the same as \"name\"
             name:  - disables any translation for name
-            repository::name - means repository/name
+            repository::name - means repository/name (the name part gets translated as above)
 
     Commands:
         sync        Shorthand for --sync or --upgrade
